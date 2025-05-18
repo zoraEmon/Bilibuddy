@@ -1,2 +1,2 @@
 # Bilibuddy
-Bilibuddy QCU ECommerce
+An E-commerce mobile application exclusive for QCU students.
