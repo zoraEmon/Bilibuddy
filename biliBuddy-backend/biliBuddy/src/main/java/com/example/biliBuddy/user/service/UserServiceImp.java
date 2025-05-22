@@ -1,5 +1,6 @@
 package com.example.biliBuddy.user.service;
 
+import com.example.biliBuddy.common.exception.ResourceNotFoundException;
 import com.example.biliBuddy.common.util.UserMapper;
 import com.example.biliBuddy.user.dto.UserCreateDto;
 import com.example.biliBuddy.user.dto.UserResponseDto;
@@ -74,5 +75,11 @@ public class UserServiceImp implements UserService{
                         .collect(Collectors.toList());
 
         return userResponseDtos;
+    }
+
+    @Override
+    public User loadByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found."));
     }
 }
