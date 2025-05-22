@@ -9,11 +9,13 @@ import com.example.biliBuddy.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService{
 
@@ -52,7 +54,7 @@ public class UserServiceImp implements UserService{
         return UserMapper.toResponseDto(user);
     }
 
-    @Override
+    @Override //For user deletion
     public void deleteUser(String userId) {
         User user = userRepository.findByUserIdAndDeletedFalse(userId)
                 .orElseThrow(() -> new RuntimeException("No such user."));
@@ -61,7 +63,7 @@ public class UserServiceImp implements UserService{
         userRepository.save(user);
     }
 
-    @Override
+    @Override //ofc, for getting the list of all users.
     public List<UserResponseDto> getUsers() {
         List<User> users = userRepository.findAll();
 
