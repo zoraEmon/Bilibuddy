@@ -23,16 +23,6 @@ public class UserServiceImp implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //Mthod for creating a user.
-    @Override
-    public UserResponseDto createUser(UserCreateDto userCreateDto) {
-        User user = UserMapper.toEntity(userCreateDto);
-        user.setPassword(passwordEncoder.encode(userCreateDto.password()));
-        userRepository.save(user);
-
-        return UserMapper.toResponseDto(user);
-    }
-
     //Method for updating a particular user.
     @Override
     public UserResponseDto updateUser(UserUpdateDto userUpdateDto, String userId) {

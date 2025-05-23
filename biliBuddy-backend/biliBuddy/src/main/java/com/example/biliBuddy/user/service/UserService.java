@@ -8,7 +8,6 @@ import com.example.biliBuddy.user.model.User;
 import java.util.List;
 
 public interface UserService {
-    UserResponseDto createUser(UserCreateDto userCreateDto);
     UserResponseDto updateUser(UserUpdateDto userUpdateDto, String userId);
     void deleteUser(String userId);
     List<UserResponseDto> getUsers();

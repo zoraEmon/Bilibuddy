@@ -2,6 +2,7 @@ package com.example.biliBuddy.auth.service;
 
 import com.example.biliBuddy.user.model.User;
 import com.example.biliBuddy.user.model.enums.Role;
+import com.example.biliBuddy.user.model.enums.VerificationStatus;
 import com.example.biliBuddy.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,12 +33,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         User user = userRepository.findByEmail(email)
                 .orElseGet(() -> {
-                    User newUser = new User();
-                    newUser.setEmail(email);
-                    newUser.setUsername(username);
-                    newUser.setProfilePicture(picture);
-                    newUser.setRoles(Collections.singleton(Role.USER));
-                    return userRepository.save(newUser);
+                    return User.builder()
+                            .email(email)
+                            .username(username)
+                            .profilePicture(picture)
+                            .roles(Collections.singleton(Role.USER))
+                            .verificationStatus(VerificationStatus.PENDING)
+                            .build();
                 });
 
         List<SimpleGrantedAuthority> authorities = user.getRoles().

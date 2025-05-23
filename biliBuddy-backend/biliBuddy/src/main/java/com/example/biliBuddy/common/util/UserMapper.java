@@ -1,5 +1,6 @@
 package com.example.biliBuddy.common.util;
 
+import com.example.biliBuddy.auth.dto.AuthRequestDto;
 import com.example.biliBuddy.user.dto.UserCreateDto;
 import com.example.biliBuddy.user.dto.UserResponseDto;
 import com.example.biliBuddy.user.model.User;
@@ -31,7 +32,7 @@ public class UserMapper {
         );
     }
 
-    public static User toEntity(UserCreateDto userCreateDto) {
+    public static User toEntity(AuthRequestDto userCreateDto) {
         User user = new User();
         user.setUsername(userCreateDto.username());
         user.setEmail(userCreateDto.username());

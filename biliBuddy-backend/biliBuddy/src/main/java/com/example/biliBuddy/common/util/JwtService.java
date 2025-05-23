@@ -15,7 +15,8 @@ import java.util.function.Function;
 public class JwtService {
 
     private SecretKey secretKey;
-    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 2; // 2 hours
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 2; // 2 hours before it expires.
+    private final long REFRESH_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; //7 days before it expires, keeps the user logged in.
 
     @PostConstruct
     public void init() {
@@ -63,4 +64,17 @@ public class JwtService {
                 .getPayload();
     }
 
+    //For creating refresh token.
+    public String generateRefreshToken(String subject) {
+        return Jwts.builder()
+                .subject(subject)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME))
+                .signWith(secretKey, Jwts.SIG.HS256)
+                .compact();
+    }
+
+    public long getExpirationTime() {
+        return System.currentTimeMillis() + EXPIRATION_TIME;
+    }
 }

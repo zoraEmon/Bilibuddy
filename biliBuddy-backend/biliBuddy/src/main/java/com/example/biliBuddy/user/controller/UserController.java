@@ -18,12 +18,6 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping //Sends a request in order to create a user.
-    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserCreateDto userCreateDto) {
-        UserResponseDto userResponseDto = userService.createUser(userCreateDto);
-        return ResponseEntity.ok(userResponseDto);
-    }
-
     @DeleteMapping("/{id}") //User deletion request.
     public ResponseEntity<String> deleteUser(@RequestParam String userId) {
         try {
